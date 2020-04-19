@@ -4,3 +4,7 @@
 
 #### Description
 The snake is coded in Python and the API is hosted on Heroku.
+
+Requirements:
+- Python3
+- CherryPy
