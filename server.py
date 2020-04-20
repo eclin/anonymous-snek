@@ -57,6 +57,10 @@ class Battlesnake(object):
         print("END")
         return "ok"
 
+    @cherrypy.expose
+    def test(self):
+        return "NOTHING"
+
 
 if __name__ == "__main__":
     server = Battlesnake()
