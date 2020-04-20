@@ -20,7 +20,8 @@ def move(data):
             return "up"
     # none of the moves bring us closer to the food so we pick a random one
     # TODO: have some decision making here so that its not random
-    # 1. iterate through all the food instead of just index 0?       
+    # 1. iterate through all the food instead of just index 0? 
+    print("Made random choice")
     return random.choice(moves)
 
 def possibleMoves(data):
@@ -46,8 +47,8 @@ def possibleMoves(data):
         # add another copy of the tail to the end of the snake to avoid colliding with it
         if snakes["health"] == 100:
             snakes["body"].append(snakes["body"][-1].copy())
-    #     # if snake is longer than us then we want to avoid head to head collision
-    #     # add all possible points opposing snake could turn to (doesnt matter if the points are invalid)
+        # if snake is longer than us then we want to avoid head to head collision
+        # add all possible points opposing snake could turn to (doesnt matter if the points are invalid)
     #     if snakes["id"] != data["you"]["id"] and len(snakes["body"]) >= len(data["you"]["body"]):
     #         snakes["body"].insert(0, {"x": snakes["body"][0]["x"], "y": data["you"]["body"][0]["y"] - 1})
     #         snakes["body"].insert(0, {"x": snakes["body"][0]["x"], "y": data["you"]["body"][0]["y"] + 1})
@@ -57,6 +58,8 @@ def possibleMoves(data):
     # check for collision against all snakes
     for snakes in data["board"]["snakes"]:
         for body in snakes["body"]:
+            if body == snakes["body"][-1]:
+                break
             if "up" in moves and up == body:
                 moves.remove("up")
             if "down" in moves and down == body:
