@@ -23,7 +23,7 @@ class BasicSnake(object):
         data = cherrypy.request.json
         print("START")
         print(data)
-        return {"color": "#888888", "headType": "bendr", "tailType": "sharp"}
+        return {"color": "#888889", "headType": "bendr", "tailType": "sharp"}
 
     @cherrypy.expose
     @cherrypy.tools.json_in()
