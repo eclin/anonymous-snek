@@ -1,6 +1,7 @@
 def move(data):
     # get all possible moves that we can take without colliding
     moves = possibleMoves(data)
+    print(f"Possible Moves: {moves}")
     # there are no moves so we just return up since it doesnt matter
     if not moves:
         return "up"
@@ -39,7 +40,7 @@ def possibleMoves(data):
     # 1. we avoid headon collisions with bigger snakes
     # 2. we can ignore collisions with the tails of snakes that are not about to consume a food
     for snakes in data["board"]["snakes"]:
-        for body in snakes:
+        for body in snakes["body"]:
             if "up" in moves and up == body:
                 moves.remove("up")
             if "down" in moves and down == body:
