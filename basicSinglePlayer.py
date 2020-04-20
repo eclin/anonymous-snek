@@ -51,9 +51,9 @@ def possibleMoves(data):
         # add all possible points opposing snake could turn to (doesnt matter if the points are invalid)
         if snakes["id"] != data["you"]["id"] and len(snakes["body"]) >= len(data["you"]["body"]):
             snakes["body"].insert(0, {"x": snakes["body"][0]["x"], "y": snakes["body"][0]["y"] - 1})
-            snakes["body"].insert(0, {"x": snakes["body"][0]["x"], "y": snakes["body"][0]["y"] + 1})
-            snakes["body"].insert(0, {"x": snakes["body"][0]["x"] - 1, "y": snakes["body"][0]["y"]})
-            snakes["body"].insert(0, {"x": snakes["body"][0]["x"] + 1, "y": snakes["body"][0]["y"]})
+            snakes["body"].insert(0, {"x": snakes["body"][1]["x"], "y": snakes["body"][1]["y"] + 1})
+            snakes["body"].insert(0, {"x": snakes["body"][2]["x"] - 1, "y": snakes["body"][2]["y"]})
+            snakes["body"].insert(0, {"x": snakes["body"][3]["x"] + 1, "y": snakes["body"][3]["y"]})
 
     # check for collision against all snakes
     for snakes in data["board"]["snakes"]:
@@ -66,7 +66,7 @@ def possibleMoves(data):
                 moves.remove("left")
             if "right" in moves and right == snakes["body"][i]:
                 moves.remove("right")
-                
+
         # for body in snakes["body"]:
         #     if body == snakes["body"][-1]:
         #         break
