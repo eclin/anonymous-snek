@@ -1,7 +1,7 @@
 import os
 import random
 import cherrypy
-import strat1
+import basicSinglePlayer
 
 """
 This is a simple Battlesnake server written in Python.
