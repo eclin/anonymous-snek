@@ -49,10 +49,10 @@ def possibleMoves(data):
         # if snake is longer than us then we want to avoid head to head collision
         # add all possible points opposing snake could turn to (doesnt matter if the points are invalid)
         if snakes["id"] != data["you"]["id"] and len(snakes["body"]) >= len(data["you"]["body"]):
-            snakes["body"].insert({"x": snakes["body"][0]["x"], "y": data["you"]["body"][0]["y"] - 1})
-            snakes["body"].insert({"x": snakes["body"][0]["x"], "y": data["you"]["body"][0]["y"] + 1})
-            snakes["body"].insert({"x": snakes["body"][0]["x"] - 1, "y": data["you"]["body"][0]["y"]})
-            snakes["body"].insert({"x": snakes["body"][0]["x"] + 1, "y": data["you"]["body"][0]["y"]})
+            snakes["body"].insert(0, {"x": snakes["body"][0]["x"], "y": data["you"]["body"][0]["y"] - 1})
+            snakes["body"].insert(0, {"x": snakes["body"][0]["x"], "y": data["you"]["body"][0]["y"] + 1})
+            snakes["body"].insert(0, {"x": snakes["body"][0]["x"] - 1, "y": data["you"]["body"][0]["y"]})
+            snakes["body"].insert(0, {"x": snakes["body"][0]["x"] + 1, "y": data["you"]["body"][0]["y"]})
 
     # check for collision against all snakes
     for snakes in data["board"]["snakes"]:
