@@ -61,12 +61,23 @@ class Battlesnake(object):
     def test(self):
         return "NOTHING"
 
+class RandomSnake(object):
+    @cherrypy.expose
+    def index(self):
+        # If you open your snake URL in a browser you should see this message.
+        return "Your Battlesnake is alive!"
+
+    @cherrypy.expose
+    def test(self):
+        return "NOTHING"
 
 if __name__ == "__main__":
-    server = Battlesnake()
+    snake = Battlesnake()
+    random = RandomSnake()
     cherrypy.config.update({"server.socket_host": "0.0.0.0"})
     cherrypy.config.update(
         {"server.socket_port": int(os.environ.get("PORT", "8080")),}
     )
     print("Starting Battlesnake Server...")
-    cherrypy.quickstart(server)
+    cherrypy.quickstart(snake)
+    cherrypy.quickstart(random, '/random')
