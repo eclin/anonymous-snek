@@ -43,7 +43,7 @@ class Battlesnake(object):
         # Choose a random direction to move in
         #possible_moves = ["up", "down", "left", "right"]
         #move = random.choice(possible_moves)
-        move = strat1.move(data)
+        move = basicSinglePlayer.move(data)
 
         print(data)
         print(f"MOVE: {move}")
