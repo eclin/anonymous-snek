@@ -45,8 +45,8 @@ def possibleMoves(data):
     for snakes in data["board"]["snakes"]:
         # if the snakes health is 100 then it just ate so the tail will not move next turn
         # add another copy of the tail to the end of the snake to avoid colliding with it
-        if snakes["health"] == 100:
-            snakes["body"].append(snakes["body"][-1].copy())
+        #if snakes["health"] == 100:
+        #    snakes["body"].append(snakes["body"][-1].copy())
         # if snake is longer than us then we want to avoid head to head collision
         # add all possible points opposing snake could turn to (doesnt matter if the points are invalid)
         if snakes["id"] != data["you"]["id"] and len(snakes["body"]) >= len(data["you"]["body"]):
@@ -57,16 +57,26 @@ def possibleMoves(data):
 
     # check for collision against all snakes
     for snakes in data["board"]["snakes"]:
-        for body in snakes["body"]:
-            if body == snakes["body"][-1]:
-                break
-            if "up" in moves and up == body:
+        for i in range(len(snakes["body"]) - 1):
+            if "up" in moves and up == snakes["body"][i]:
                 moves.remove("up")
-            if "down" in moves and down == body:
+            if "down" in moves and down == snakes["body"][i]:
                 moves.remove("down")
-            if "left" in moves and left == body:
+            if "left" in moves and left == snakes["body"][i]:
                 moves.remove("left")
-            if "right" in moves and right == body:
+            if "right" in moves and right == snakes["body"][i]:
                 moves.remove("right")
+                
+        # for body in snakes["body"]:
+        #     if body == snakes["body"][-1]:
+        #         break
+        #     if "up" in moves and up == body:
+        #         moves.remove("up")
+        #     if "down" in moves and down == body:
+        #         moves.remove("down")
+        #     if "left" in moves and left == body:
+        #         moves.remove("left")
+        #     if "right" in moves and right == body:
+        #         moves.remove("right")
     return moves              
 
