@@ -41,11 +41,11 @@ def possibleMoves(data):
     elif data["you"]["body"][0]["y"] == data["board"]["height"] - 1:
         moves.remove("down")
 
-    # for snakes in data["board"]["snakes"]:
-    #     # if the snakes health is 100 then it just ate so the tail will not move next turn
-    #     # add another copy of the tail to the end of the snake to avoid colliding with it
-    #     if snakes["health"] == 100:
-    #         snakes["body"].append(snakes["body"][-1].copy())
+    for snakes in data["board"]["snakes"]:
+        # if the snakes health is 100 then it just ate so the tail will not move next turn
+        # add another copy of the tail to the end of the snake to avoid colliding with it
+        if snakes["health"] == 100:
+            snakes["body"].append(snakes["body"][-1].copy())
     #     # if snake is longer than us then we want to avoid head to head collision
     #     # add all possible points opposing snake could turn to (doesnt matter if the points are invalid)
     #     if snakes["id"] != data["you"]["id"] and len(snakes["body"]) >= len(data["you"]["body"]):
