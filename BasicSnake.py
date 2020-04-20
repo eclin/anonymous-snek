@@ -1,6 +1,6 @@
 import random
 import cherrypy
-import basicSinglePlayer
+from basicSinglePlayer import BasicStrategy
 
 class BasicSnake(object):
     @cherrypy.expose
@@ -21,6 +21,7 @@ class BasicSnake(object):
         # cherrypy.request.json contains information about the game that's about to be played.
         # TODO: Use this function to decide how your snake is going to look on the board.
         data = cherrypy.request.json
+        self.strategy = BasicStrategy(data)
         print("START")
         print(data)
         return {"color": "#888889", "headType": "bendr", "tailType": "sharp"}
@@ -37,7 +38,7 @@ class BasicSnake(object):
         # Choose a random direction to move in
         #possible_moves = ["up", "down", "left", "right"]
         #move = random.choice(possible_moves)
-        move = basicSinglePlayer.move(data)
+        move = self.strategy.move(data)
 
         print(data)
         print(f"MOVE: {move}")
