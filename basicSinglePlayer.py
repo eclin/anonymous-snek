@@ -41,10 +41,20 @@ def possibleMoves(data):
     elif data["you"]["body"][0]["y"] == data["board"]["height"] - 1:
         moves.remove("down")
 
+    for snakes in data["board"]["snakes"]:
+        # if the snakes health is 100 then it just ate so the tail will not move next turn
+        # add another copy of the tail to the end of the snake to avoid colliding with it
+        if snakes["health"] == 100:
+            snakes["body"].append(snakes["body"][-1].copy())
+        # if snake is longer than us then we want to avoid head to head collision
+        # add all possible points opposing snake could turn to (doesnt matter if the points are invalid)
+        if snakes["id"] != data["you"]["id"] and len(snakes["body"]) >= len(data["you"]["body"]):
+            snakes["body"].insert({"x": snakes["body"][0]["x"], "y": data["you"]["body"][0]["y"] - 1})
+            snakes["body"].insert({"x": snakes["body"][0]["x"], "y": data["you"]["body"][0]["y"] + 1})
+            snakes["body"].insert({"x": snakes["body"][0]["x"] - 1, "y": data["you"]["body"][0]["y"]})
+            snakes["body"].insert({"x": snakes["body"][0]["x"] + 1, "y": data["you"]["body"][0]["y"]})
+
     # check for collision against all snakes
-    # TODO: consider that the other snakes are also taking a move so:
-    # 1. we avoid headon collisions with bigger snakes
-    # 2. we can ignore collisions with the tails of snakes that are not about to consume a food
     for snakes in data["board"]["snakes"]:
         for body in snakes["body"]:
             if "up" in moves and up == body:
