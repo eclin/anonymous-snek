@@ -5,6 +5,6 @@ def move(data):
         return "left"
     else:
         if data["you"]["body"][0]["y"] < data["board"]["food"][0]["y"]:
-            return "up"
-        else:
             return "down"
+        else:
+            return "up"
