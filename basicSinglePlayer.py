@@ -1,3 +1,5 @@
+import random
+
 def move(data):
     # get all possible moves that we can take without colliding
     moves = possibleMoves(data)
@@ -14,8 +16,12 @@ def move(data):
     else:
         if ("down" in moves) and (data["you"]["body"][0]["y"] < data["board"]["food"][0]["y"]):
             return "down"
-        else:
+        elif ("up" in moves) and (data["you"]["body"][0]["y"] > data["board"]["food"][0]["y"]):
             return "up"
+    # none of the moves bring us closer to the food so we pick a random one
+    # TODO: have some decision making here so that its not random
+    # 1. iterate through all the food instead of just index 0?       
+    return random.choice(moves)
 
 def possibleMoves(data):
     moves = ["up", "down", "left", "right"]
