@@ -1,15 +1,9 @@
 import random
 import cherrypy
 
-class RandomSnake(object):
-    @cherrypy.expose
-    def index(self):
-        return "Your Battlesnake is alive!"
+from Snake import Snake
 
-    @cherrypy.expose
-    def ping(self):
-        return "pong"
-
+class RandomSnake(Snake):
     @cherrypy.expose
     @cherrypy.tools.json_in()
     @cherrypy.tools.json_out()
@@ -31,10 +25,3 @@ class RandomSnake(object):
         print(data)
         print(f"MOVE: {move}")
         return {"move": move}
-
-    @cherrypy.expose
-    @cherrypy.tools.json_in()
-    def end(self):
-        data = cherrypy.request.json
-        print("END")
-        return "ok"
