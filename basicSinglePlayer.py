@@ -37,7 +37,7 @@ class BasicStrategy(object):
             if ret != None:
                 return ret
             if self.board.my_snake.health >= 2 * (self.board.height + self.board.width):
-                return random.choice(moves_no_death) 
+                return self.board.my_snake.head.direction(random.choice(moves_no_death))
         # moves is not empty
         if (head_right in moves) and (self.board.my_snake.head.x < closestFood.x):
             return RIGHT
@@ -49,5 +49,4 @@ class BasicStrategy(object):
             elif (head_up in moves) and (self.board.my_snake.head.y > closestFood.y):
                 return UP
         # TODO: can potentially mark certain moves as less dangerous and take the least dangerous move
-        return random.choice(moves)         
-
+        return self.board.my_snake.head.direction(random.choice(moves))
