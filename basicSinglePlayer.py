@@ -11,7 +11,8 @@ class BasicStrategy(object):
     def basic_move(self):
         moves = self.board.possible_moves()
         moves_no_death = self.board.possible_moves_no_death()
-        print(f"Possible Moves: {moves}")
+        print(f"Possible Moves: {[self.board.my_snake.head.direction(x) for x in moves]}")
+        print(f"Possible Moves No Death: {[self.board.my_snake.head.direction(x) for x in moves_no_death]}")
 
         head = self.board.my_snake.head
         head_up = head.up()
