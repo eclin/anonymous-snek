@@ -182,6 +182,7 @@ class Snake(object):
         self.head = self.body[0]
         self.tail = self.body[-1]
         self.length = len(self.body)
+        print(f"Upated len:{self.length}, actual len:{len(data['body'])}")
 
     def size_on_board(self):
         return len({x for x in self.body})
