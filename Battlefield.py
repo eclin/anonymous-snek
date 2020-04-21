@@ -132,8 +132,6 @@ class Board(object):
 
 
 class Snake(object):
-    min_length = 3
-
     # data is a snake dict, not the entire game dict
     def __init__(self, data):
         self.id = data['id']
@@ -165,9 +163,6 @@ class Snake(object):
         self.head = self.body[0]
         self.tail = self.body[-1]
         self.length = len(self.body)
-
-        if (self.length < 3):
-            self.will_extend = True
 
     # returns possible moves of the snake. Does not take into account bad moves.
     def possible_moves(self):
