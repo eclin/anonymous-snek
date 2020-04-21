@@ -74,7 +74,7 @@ class Board(object):
         for f in self.food:
             if self.my_snake.head.distance(f) < low:
                 p = f
-        return
+        return p
 
     # return possible moves given a position (default to your head)
     # moves returned could still lead to death (like head on head)
