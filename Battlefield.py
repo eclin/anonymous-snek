@@ -76,8 +76,10 @@ class Board(object):
         
         return [moves[d] for d in DIRECTIONS]
 
-    def possible_moves_no_death(self, point=self.my_snake.head):
-        moves = self.possible_moves()
+    def possible_moves_no_death(self, point=None):
+        if point is None:
+            point = self.my_snake.head
+        moves = self.possible_moves(point)
         new_moves = []
         # check if can collide head on with another equal sized or longer snake
         for s in self.other_snakes:
