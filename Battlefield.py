@@ -27,13 +27,13 @@ class Coord(object):
         return abs(self.x - p.x) + abs(self.y - p.y)
 
     def direction(self, p):
-        if self.__eq__(p.up()):
+        if self.up() == p:
             return UP
-        if self.__eq__(p.down()):
+        if self.down() == p:
             return DOWN
-        if self.__eq__(p.right()):
+        if self.right() == p:
             return RIGHT
-        if self.__eq__(p.left()):
+        if self.left() == p:
             return LEFT
 
     def __eq__(self, p):
