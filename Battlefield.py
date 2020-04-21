@@ -11,16 +11,16 @@ class Coord(object):
         self.y = y
 
     def up(self):
-        return Coord(x, y-1)
+        return Coord(self.x, self.y-1)
 
     def down(self):
-        return Coord(x, y+1)
+        return Coord(self.x, self.y+1)
 
     def left(self):
-        return Coord(x-1, y)
+        return Coord(self.x-1, self.y)
 
     def right(self):
-        return Coord(x+1, y)
+        return Coord(self.x+1, self.y)
 
 class Board(object):
     # data is the entire game json dictionary.
