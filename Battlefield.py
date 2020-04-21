@@ -26,6 +26,16 @@ class Coord(object):
     def distance(self, p):
         return abs(self.x - p.x) + abs(self.y - p.y)
 
+    def direction(self, p):
+        if self.__eq__(p.up()):
+            return UP
+        if self.__eq__(p.down()):
+            return DOWN
+        if self.__eq__(p.right()):
+            return RIGHT
+        if self.__eq__(p.left()):
+            return LEFT
+
     def __eq__(self, p):
         return self.x == p.x and self.y == p.y
 
