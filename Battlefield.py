@@ -64,12 +64,20 @@ class Board(object):
         for f in data['board']['food']:
             self.food.append(Coord(f['x'], f['y']))
         self.my_snake.update(data['you'])
+        updated_snakes = []
         for s in data['board']['snakes']:
             curID = s['id']
             if curID != self.my_snake.id:
                 for o in self.other_snakes:
                     if curID == o.id:
                         o.update(s)
+                        updated_snakes.append(curID)
+        # if a snake was not updated, it means it died
+        live_snakes = []
+        for s in self.other_snakes:
+            if s.id in updated_snakes:
+                live_snakes.append(s)
+        self.other_snakes = live_snakes
 
     def out_of_bounds(self, p):
         if p.x < 0 or p.x >= self.width or p.y < 0 or p.y >= self.height:
