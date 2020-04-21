@@ -170,7 +170,7 @@ class Snake(object):
         first = Coord(data['body'][0]['x'], data['body'][0]['y'])
         last = Coord(data['body'][-1]['x'], data['body'][-1]['y'])
         self.body.insert(0, first)
-        if len(data['body']) > self.size_on_board():
+        if len(data['body']) >= self.size_on_board():
             # just ate a food -> pop back, add new back
             self.body.pop(-1)
             self.body.append(last)
