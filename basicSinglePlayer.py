@@ -37,12 +37,14 @@ class BasicStrategy(object):
                 elif (head_up in moves_no_death) and (self.board.my_snake.head.y > closestFood.y):
                     ret = UP
             # if health is greater than threshold then dont take a riskier move
+            print(f"moves_no_death ret = {ret}")
             if ret != None:
                 return ret
             if self.board.my_snake.health >= 2 * (self.board.height + self.board.width):
                 if not moves_no_death:
                     return self.board.my_snake.head.direction(random.choice(moves_no_death))
                 else:
+                    print("Making random safe move")
                     return random.choice(DIRECTIONS)
         # moves is not empty
         print("Making a risky move")
