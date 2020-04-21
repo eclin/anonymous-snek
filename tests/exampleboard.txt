@@ -1,0 +1,76 @@
+{
+    "game": {
+        "id": "565f9a41-ca40-44dc-979a-212470145779"
+    },
+    "turn": 2,
+    "board": {
+        "height": 11,
+        "width": 11,
+        "food": [{
+                "x": 2,
+                "y": 4
+            },
+            {
+                "x": 6,
+                "y": 1
+            }
+        ],
+        "snakes": [{
+            "id": "gs_J7YmyRgTFCPHcbKG3fyBrBRD",
+            "name": "Start Snek",
+            "health": 98,
+            "body": [{
+                    "x": 6,
+                    "y": 4
+                },
+                {
+                    "x": 6,
+                    "y": 5
+                },
+                {
+                    "x": 6,
+                    "y": 6
+                }
+            ],
+            "shout": ""
+        },
+        {
+            "id": "gs_J7YmyRgTFCPHcbKG3fyBrBRP",
+            "name": "Snake 2",
+            "health": 93,
+            "body": [{
+                    "x": 5,
+                    "y": 5
+                },
+                {
+                    "x": 5,
+                    "y": 6
+                },
+                {
+                    "x": 5,
+                    "y": 7
+                }
+            ],
+            "shout": ""
+        }]
+    },
+    "you": {
+        "id": "gs_J7YmyRgTFCPHcbKG3fyBrBRD",
+        "name": "Start Snek",
+        "health": 98,
+        "body": [{
+                "x": 6,
+                "y": 4
+            },
+            {
+                "x": 6,
+                "y": 5
+            },
+            {
+                "x": 6,
+                "y": 6
+            }
+        ],
+        "shout": ""
+    }
+}
