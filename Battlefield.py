@@ -88,14 +88,12 @@ class Board(object):
 
     # return possible moves given a position (default to your head)
     # moves returned could still lead to death (like head on head)
-    def possible_moves(self, point=None):
-        if point is None:
-            point = self.my_snake.head
+    def possible_moves(self):
         moves = {
-            UP: point.up(),
-            DOWN: point.down(),
-            LEFT: point.left(),
-            RIGHT: point.right(),
+            UP: self.my_snake.head.up(),
+            DOWN: self.my_snake.head.down(),
+            LEFT: self.my_snake.head.left(),
+            RIGHT: self.my_snake.head.right(),
         }
         for d in DIRECTIONS:
             if self.out_of_bounds(moves[d]):
@@ -117,18 +115,18 @@ class Board(object):
         
         return [moves[d] for d in DIRECTIONS]
 
-    def possible_moves_no_death(self, point=None):
-        if point is None:
-            point = self.my_snake.head
-        moves = self.possible_moves(point)
+    def possible_moves_no_death(self):
+        moves = self.possible_moves()
         new_moves = []
+        other_moves = []
         # check if can collide head on with another equal sized or longer snake
         for s in self.other_snakes:
             if s.length >= self.my_snake.length:
-                other_moves = s.possible_moves()
-                for m in moves:
-                    if m not in other_moves:
-                        new_moves.append(m)
+                for m in s.possible_moves():
+                    other_moves.append(m)
+        for m in moves:
+            if m not in other_moves:
+                new_moves.append(m)
 
         return new_moves
 
