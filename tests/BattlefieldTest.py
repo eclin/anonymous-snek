@@ -136,3 +136,5 @@ class BoardSnakeTest():
         assert Coord(5, 3) in moves and Coord(6, 2) in moves 
         assert Coord(7, 3) in moves and Coord(6, 4) in moves
 
+        self.board.my_snake.body.append(Coord(6, 5))
+        assert self.board.my_snake.size_on_board() == 3

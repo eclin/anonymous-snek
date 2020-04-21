@@ -42,6 +42,11 @@ class Coord(object):
     def __ne__(self, p):
         return not self.__eq__(p)
 
+    def __hash__(self):
+        strx = str(self.x * 100)
+        stry = str(self.y * 100)
+        return (strx + stry).__hash__()
+
 class Board(object):
     # data is the entire game json dictionary.
     def __init__(self, data):
@@ -165,7 +170,7 @@ class Snake(object):
         first = Coord(data['body'][0]['x'], data['body'][0]['y'])
         last = Coord(data['body'][-1]['x'], data['body'][-1]['y'])
         self.body.insert(0, first)
-        if len(data['body']) > self.length:
+        if len(data['body']) > self.size_on_board():
             # just ate a food -> pop back, add new back
             self.body.pop(-1)
             self.body.append(last)
@@ -177,6 +182,9 @@ class Snake(object):
         self.head = self.body[0]
         self.tail = self.body[-1]
         self.length = len(self.body)
+
+    def size_on_board(self):
+        return len({x for x in self.body})
 
     # returns possible moves of the snake. Does not take into account bad moves.
     def possible_moves(self):
