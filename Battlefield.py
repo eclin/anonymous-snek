@@ -51,7 +51,9 @@ class Board(object):
 
     # return possible moves given a position (default to your head)
     # moves returned could still lead to death
-    def possible_moves(self, point=self.my_snake.head):
+    def possible_moves(self, point=None):
+        if point is None:
+            point = self.my_snake.head
         moves = {
             UP: point.up(),
             DOWN: point.down(),
