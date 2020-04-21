@@ -103,17 +103,17 @@ class Board(object):
         # except for the tail if it were to move
         for s in self.other_snakes:
             for d in DIRECTIONS:
-                if moves[d] in s.body:
+                if d in moves and moves[d] in s.body:
                     # if its to a tail spot and the tail will move, then its ok
                     if moves[d] == s.tail and not s.will_extend:
                         continue
                     moves.pop(d)
         
         for d in DIRECTIONS:
-            if moves[d] in self.my_snake.body:
+            if d in moves and moves[d] in self.my_snake.body:
                 moves.pop(d)
         
-        return [moves[d] for d in DIRECTIONS]
+        return [moves[d] for d in moves]
 
     def possible_moves_no_death(self):
         moves = self.possible_moves()
