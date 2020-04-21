@@ -14,7 +14,7 @@ class BasicStrategy(object):
 
     def move(self, data):
         # get all possible moves that we can take without colliding
-        moves = possibleMoves(data)
+        moves = self.possibleMoves(data)
         print(f"Possible Moves: {moves}")
         # there are no moves so we just return up since it doesnt matter
         if not moves:

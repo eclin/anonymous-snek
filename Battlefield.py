@@ -36,7 +36,7 @@ class Board(object):
         self.other_snakes = []
         for s in data['board']['snakes']:
             if s['id'] != self.my_snake.id:
-                self.all_snakes.append(Snake(s))
+                self.other_snakes.append(Snake(s))
 
     # given the game data, this will update the board
     def update(self, data):
@@ -110,4 +110,4 @@ class Snake(object):
 
     # returns possible moves of the snake. Does not take into account bad moves.
     def possible_moves(self):
-        return [head.up(), head.down(), head.left(), head.right()]
+        return [self.head.up(), self.head.down(), self.head.left(), self.head.right()]
