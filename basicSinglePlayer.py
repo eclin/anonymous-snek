@@ -38,7 +38,10 @@ class BasicStrategy(object):
             if ret != None:
                 return ret
             if self.board.my_snake.health >= 2 * (self.board.height + self.board.width):
-                return self.board.my_snake.head.direction(random.choice(moves_no_death))
+                if not moves_no_death:
+                    return self.board.my_snake.head.direction(random.choice(moves_no_death))
+                else:
+                    return random.choice(DIRECTIONS)
         # moves is not empty
         if (head_right in moves) and (self.board.my_snake.head.x < closestFood.x):
             return RIGHT
