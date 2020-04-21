@@ -149,6 +149,8 @@ class Snake(object):
     # updates a snake
     def update(self, data):
         self.health = data['health']
+        self.will_extend = False
+        self.just_ate = False
 
         first = Coord(data['body'][0]['x'], data['body'][0]['y'])
         last = Coord(data['body'][-1]['x'], data['body'][-1]['y'])
@@ -159,6 +161,8 @@ class Snake(object):
             self.body.append(last)
             self.just_ate = True
             self.will_extend = True
+        else:
+            self.body.pop(-1)
 
         self.head = self.body[0]
         self.tail = self.body[-1]
