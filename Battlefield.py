@@ -64,7 +64,6 @@ class Board(object):
         for f in data['board']['food']:
             self.food.append(Coord(f['x'], f['y']))
         self.my_snake.update(data['you'])
-        self.other_snakes = []
         for s in data['board']['snakes']:
             curID = s['id']
             if curID != self.my_snake.id:
@@ -84,6 +83,7 @@ class Board(object):
         for f in self.food:
             if self.my_snake.head.distance(f) < low:
                 p = f
+                low = self.my_snake.head.distance(f)
         return p
 
     # return possible moves given a position (default to your head)
