@@ -38,7 +38,7 @@ class BasicSnake(object):
         # Choose a random direction to move in
         #possible_moves = ["up", "down", "left", "right"]
         #move = random.choice(possible_moves)
-        move = self.strategy.move(data)
+        move = self.strategy.basic_move()
 
         print(data)
         print(f"MOVE: {move}")
