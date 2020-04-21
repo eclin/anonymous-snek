@@ -23,6 +23,8 @@ class BasicStrategy(object):
         if not moves:
             return UP
         closestFood = self.board.closest_food()
+        print(f"Closest food: ({closestFood.x},{closestFood.y})")
+
         if not moves_no_death:
             ret = None
             if (head_right in moves_no_death) and (self.board.my_snake.head.x < closestFood.x):
@@ -43,6 +45,7 @@ class BasicStrategy(object):
                 else:
                     return random.choice(DIRECTIONS)
         # moves is not empty
+        print("Making a risky move")
         if (head_right in moves) and (self.board.my_snake.head.x < closestFood.x):
             return RIGHT
         elif (head_left in moves) and (self.board.my_snake.head.x > closestFood.x):
