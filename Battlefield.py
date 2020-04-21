@@ -119,6 +119,8 @@ class Board(object):
         
         for d in DIRECTIONS:
             if d in moves and moves[d] in self.my_snake.body:
+                if moves[d] == self.my_snake.tail and not self.my_snake.will_extend:
+                    continue
                 moves.pop(d)
         
         return [moves[d] for d in moves]
