@@ -38,6 +38,8 @@ class Coord(object):
             return LEFT
 
     def __eq__(self, p):
+        if p is None:
+            return False
         return self.x == p.x and self.y == p.y
 
     def __ne__(self, p):
@@ -281,6 +283,8 @@ class Snake(object):
         return [self.head.up(), self.head.down(), self.head.left(), self.head.right()]
 
     def __eq__(self, other):
+        if other is None:
+            return False
         return self.id == other.id
 
     def __ne__(self, other):
