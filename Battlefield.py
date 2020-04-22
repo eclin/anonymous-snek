@@ -166,7 +166,7 @@ class Board(object):
             for s in all_snakes:
                 grid[s.body[-turn].y][s.body[-turn].x] = 0
             for g in grid:
-                print(g)
+                #print(g)
             cur_size, cur_area = self.compute_area(grid, p, make_copy=True)
             if cur_size > orig_size:
                 return turn, cur_size
