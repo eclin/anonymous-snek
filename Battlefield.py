@@ -62,6 +62,7 @@ class Board(object):
         for s in data['board']['snakes']:
             if s['id'] != self.my_snake.id:
                 self.other_snakes.append(Snake(s))
+        self.areas = self.compute_areas()
 
     # given the game data, this will update the board
     def update(self, data):
@@ -83,6 +84,41 @@ class Board(object):
             if s.id in updated_snakes:
                 live_snakes.append(s)
         self.other_snakes = live_snakes
+        self.areas = self.compute_areas()
+
+    def compute_areas(self):
+        # create height x width 2D array of all 0s
+        grid = [[0] * self.width for x in range(self.height)]
+
+        # For each snake body, mark the grid with a 1
+        for s in self.other_snakes:
+            for b in s.body:
+                grid[b.x][b.y] = 1
+        for b in self.my_snake.body:
+            grid[b.x][b.y] = 1
+        
+        areas = []
+        for y in range(len(grid)):
+            for x in range(len(grid[y])):
+                if grid[x][y] == 1:
+                    continue
+                grid[x][y] = 1
+                cur = Coord(x, y)
+                cur_area = [Coord(x, y)]
+                stack = [cur.up(), cur.down(), cur.left(), cur.right()]
+                while len(stack) > 0:
+                    top = stack.pop(-1)
+                    if self.out_of_bounds(top):
+                        continue
+                    if grid[top.x][top.y] == 1:
+                        continue
+                    cur_area.append(top)
+                    grid[top.x][top.y] = 1
+                    stack += [top.up(), top.down(), top.left(), top.right()]
+                areas.append(cur_area)
+        areas.sort(key=lambda x: len(x), reverse=True)
+        return areas
+                
 
     def out_of_bounds(self, p):
         if p.x < 0 or p.x >= self.width or p.y < 0 or p.y >= self.height:

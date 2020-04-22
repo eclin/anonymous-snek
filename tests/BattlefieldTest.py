@@ -138,3 +138,14 @@ class BoardSnakeTest():
 
         self.board.my_snake.body.append(Coord(6, 5))
         assert self.board.my_snake.size_on_board() == 3
+
+        # test the compute_areas function
+        assert len(self.board.areas) == 1
+        assert len(self.board.areas[0]) == 115
+        f = open("tests/test_areas.txt")
+        data = json.load(f)
+        self.board = Board(data)
+        assert len(self.board.areas) == 3
+        assert len(self.board.areas[0]) == 55
+        assert len(self.board.areas[1]) == 25
+        assert len(self.board.areas[2]) == 22
