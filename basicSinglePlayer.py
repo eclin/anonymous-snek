@@ -8,6 +8,12 @@ class BasicStrategy(object):
     def update(self, data):
         self.board.update(data)
 
+    def findBestMove(self, beneficial):
+        for areas in self.board.areas:
+            for move in beneficial:
+                if move in areas:
+                    return move, len(areas)
+
     def basic_move(self):
         moves = self.board.possible_moves()
         moves_no_death = self.board.possible_moves_no_death()
@@ -25,33 +31,47 @@ class BasicStrategy(object):
         closestFood = self.board.closest_food()
         print(f"Closest food: ({closestFood.x},{closestFood.y})")
 
+        beneficial = []
+
         if moves_no_death:
-            ret = None
             if (head_right in moves_no_death) and (self.board.my_snake.head.x < closestFood.x):
-                ret = RIGHT
+                beneficial.append(head_right)
             elif (head_left in moves_no_death) and (self.board.my_snake.head.x > closestFood.x):
-                ret = LEFT
-            else:
-                if (head_down in moves_no_death) and (self.board.my_snake.head.y < closestFood.y):
-                    ret = DOWN
-                elif (head_up in moves_no_death) and (self.board.my_snake.head.y > closestFood.y):
-                    ret = UP
+                beneficial.append(head_left)
+            if (head_down in moves_no_death) and (self.board.my_snake.head.y < closestFood.y):
+                beneficial.append(head_down)
+            elif (head_up in moves_no_death) and (self.board.my_snake.head.y > closestFood.y):
+                    beneficial.append(head_up)
             # if health is greater than threshold then dont take a riskier move
-            print(f"moves_no_death ret = {ret}")
-            if ret != None:
-                return ret
+            if beneficial:
+                print(f"Beneficial Safe Moves: ({[self.board.my_snake.head.direction(x) for x in beneficial]})")
+                move_to_take, area = self.findBestMove(beneficial)
+                print(f"Area of potential new beneficial safe area: {area}")
+                if area > self.board.my_snake.length or self.board.my_snake.health < 2 * (self.board.height + self.board.width):
+                    return self.board.my_snake.head.direction(move_to_take)
             if self.board.my_snake.health >= 2 * (self.board.height + self.board.width):
-                return self.board.my_snake.head.direction(random.choice(moves_no_death))
+                print(f"Nothing beneficial and not starving")
+                move_to_take, area = self.findBestMove(moves_no_death)
+                print(f"Area of potential new safe area: {area}")
+                return self.board.my_snake.head.direction(move_to_take)
         # moves is not empty
         print("Making a risky move")
+        beneficial.clear()
         if (head_right in moves) and (self.board.my_snake.head.x < closestFood.x):
-            return RIGHT
+            beneficial.append(head_right)
         elif (head_left in moves) and (self.board.my_snake.head.x > closestFood.x):
-            return LEFT
-        else:
-            if (head_down in moves) and (self.board.my_snake.head.y < closestFood.y):
-                return DOWN
-            elif (head_up in moves) and (self.board.my_snake.head.y > closestFood.y):
-                return UP
+            beneficial.append(head_left)
+        if (head_down in moves) and (self.board.my_snake.head.y < closestFood.y):
+            beneficial.append(head_down)
+        elif (head_up in moves) and (self.board.my_snake.head.y > closestFood.y):
+            beneficial.append(head_up)
         # TODO: can potentially mark certain moves as less dangerous and take the least dangerous move
-        return self.board.my_snake.head.direction(random.choice(moves))
+        if beneficial:
+            print(f"Beneficial Risky Moves: ({[self.board.my_snake.head.direction(x) for x in beneficial]})")
+            move_to_take, area = self.findBestMove(beneficial)
+            print(f"Area of potential new risky area: {area}")
+            return self.board.my_snake.head.direction(move_to_take)
+        else:
+            move_to_take, area = self.findBestMove(moves)
+            print(f"Area of potential new risky death area: {area}")
+            return self.board.my_snake.head.direction(move_to_take)
