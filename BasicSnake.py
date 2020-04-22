@@ -17,8 +17,8 @@ class BasicSnake(Snake):
         data = cherrypy.request.json
         snake_id = data['you']['id']
         self.strategy[snake_id] = BasicStrategy(data)
-        print("START")
-        print(data)
+        #print("START")
+        #print(data)
         return {"color": "#888889", "headType": "bendr", "tailType": "sharp"}
 
     @cherrypy.expose
@@ -32,6 +32,6 @@ class BasicSnake(Snake):
         move = self.strategy[snake_id].basic_move()
         end = time.time()
         print(f"Time:{end-start}")
-        print(data)
-        print(f"MOVE: {move}")
+        #print(data)
+        #print(f"MOVE: {move}")
         return {"move": move}

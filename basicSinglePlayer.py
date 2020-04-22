@@ -23,8 +23,8 @@ class BasicStrategy(object):
     def basic_move(self):
         moves = self.board.possible_moves()
         moves_no_death = self.board.possible_moves_no_death()
-        print(f"Possible Moves: {[self.board.my_snake.head.direction(x) for x in moves]}")
-        print(f"Possible Moves No Death: {[self.board.my_snake.head.direction(x) for x in moves_no_death]}")
+        #print(f"Possible Moves: {[self.board.my_snake.head.direction(x) for x in moves]}")
+        #print(f"Possible Moves No Death: {[self.board.my_snake.head.direction(x) for x in moves_no_death]}")
 
         head = self.board.my_snake.head
         head_up = head.up()
@@ -35,7 +35,7 @@ class BasicStrategy(object):
         if not moves:
             return UP
         closestFood = self.board.closest_food()
-        print(f"Closest food: ({closestFood.x},{closestFood.y})")
+        #print(f"Closest food: ({closestFood.x},{closestFood.y})")
 
         beneficial = []
 
@@ -50,17 +50,17 @@ class BasicStrategy(object):
                     beneficial.append(head_up)
             # if health is greater than threshold then dont take a riskier move
             if beneficial:
-                print(f"Beneficial Safe Moves: ({[self.board.my_snake.head.direction(x) for x in beneficial]})")
+                #print(f"Beneficial Safe Moves: ({[self.board.my_snake.head.direction(x) for x in beneficial]})")
                 move_to_take = self.findBestMove(beneficial, self.board.my_snake.length)
                 if move_to_take != None:
                     return self.board.my_snake.head.direction(move_to_take)
             if self.board.my_snake.health >= (self.board.height + self.board.width):
-                print(f"Nothing beneficial and not starving")
+                #print(f"Nothing beneficial and not starving")
                 move_to_take = self.findBestMove(moves_no_death, self.board.my_snake.length)
                 if move_to_take != None:
                     return self.board.my_snake.head.direction(move_to_take)
         # moves is not empty
-        print("Making a risky move")
+        #print("Making a risky move")
         beneficial.clear()
         if (head_right in moves) and (self.board.my_snake.head.x < closestFood.x):
             beneficial.append(head_right)
@@ -72,7 +72,7 @@ class BasicStrategy(object):
             beneficial.append(head_up)
         # TODO: can potentially mark certain moves as less dangerous and take the least dangerous move
         if beneficial:
-            print(f"Beneficial Risky Moves: ({[self.board.my_snake.head.direction(x) for x in beneficial]})")
+            #print(f"Beneficial Risky Moves: ({[self.board.my_snake.head.direction(x) for x in beneficial]})")
             move_to_take = self.findBestMove(beneficial, self.board.my_snake.length)
             if move_to_take != None:
                 return self.board.my_snake.head.direction(move_to_take)
