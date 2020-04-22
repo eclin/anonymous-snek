@@ -1,4 +1,5 @@
 import math
+import copy
 
 LEFT = 'left'
 RIGHT = 'right'
@@ -102,24 +103,75 @@ class Board(object):
             for x in range(len(grid[y])):
                 if grid[x][y] == 1:
                     continue
-                grid[x][y] = 1
-                cur = Coord(x, y)
-                cur_area = [Coord(x, y)]
-                stack = [cur.up(), cur.down(), cur.left(), cur.right()]
-                while len(stack) > 0:
-                    top = stack.pop(-1)
-                    if self.out_of_bounds(top):
-                        continue
-                    if grid[top.x][top.y] == 1:
-                        continue
-                    cur_area.append(top)
-                    grid[top.x][top.y] = 1
-                    stack += [top.up(), top.down(), top.left(), top.right()]
-                areas.append(cur_area)
+                size, area = self.compute_area(grid, Coord(x, y))
+                areas.append(area)
         areas.sort(key=lambda x: len(x), reverse=True)
         return areas
-                
 
+    # Given a grid and Coord p, returns the size of the area that p is in
+    # along with an array of Coords representing that area
+    # grid must be 0 if free, 1 if occupied.
+    # will set all points of that area to 1.
+    # if p is not a free point, returns 0, []
+    def compute_area(self, g, p, make_copy=False):
+        if make_copy:
+            grid = copy.deepcopy(g)
+        else:
+            grid = g
+        if grid[p.x][p.y] == 1:
+            return 0, []
+        grid[p.x][p.y] = 1
+        area = [p]
+        stack = [p.up(), p.down(), p.left(), p.right()]
+        while len(stack) > 0:
+            top = stack.pop(-1)
+            if self.out_of_bounds(top):
+                continue
+            if grid[top.x][top.y] == 1:
+                continue
+            area.append(top)
+            grid[top.x][top.y] = 1
+            stack += [top.up(), top.down(), top.left(), top.right()]
+        return len(area), area
+                
+    # Given any Coord p in an area (not a snake), this returns the number of turns it
+    # takes for the area to open up (increase in size) and the size of the
+    # new area. If there is only one area, it can't open up and will return -1, -1
+    def turns_to_open(self, p):
+        if len(self.areas) == 1:
+            return -1, -1
+        orig_size = 0
+        for a in self.areas:
+            if p in a:
+                orig_size = len(a)
+
+        all_snakes = self.other_snakes + [self.my_snake]
+
+        # remove the ends of all snakes and recompute area
+        # if bigger, then return the turns and new size
+        # if not, then repeat
+        max_len = 0
+        for s in all_snakes:
+            max_len = max(s.length, max_len)
+        
+        grid = [[0] * self.width for x in range(self.height)]
+        for s in all_snakes:
+            for b in s.body:
+                grid[b.y][b.x] = 1
+
+        turn = 1
+        while turn <= max_len:
+            for s in all_snakes:
+                grid[s.body[-turn].y][s.body[-turn].x] = 0
+            for g in grid:
+                print(g)
+            cur_size, cur_area = self.compute_area(grid, p, make_copy=True)
+            if cur_size > orig_size:
+                return turn, cur_size
+        
+        # should never reach here
+        return -1, -1
+            
     def out_of_bounds(self, p):
         if p.x < 0 or p.x >= self.width or p.y < 0 or p.y >= self.height:
             return True
@@ -227,3 +279,9 @@ class Snake(object):
     # returns possible moves of the snake. Does not take into account bad moves.
     def possible_moves(self):
         return [self.head.up(), self.head.down(), self.head.left(), self.head.right()]
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
