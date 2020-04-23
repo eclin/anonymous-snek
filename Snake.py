@@ -15,7 +15,7 @@ class Snake():
     @cherrypy.tools.json_in()
     def end(self):
         data = cherrypy.request.json
-        #print("END")
+        print("END")
         return "ok"
 
     @cherrypy.expose

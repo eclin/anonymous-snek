@@ -13,6 +13,6 @@ if __name__ == "__main__":
     cherrypy.config.update(
         {"server.socket_port": int(os.environ.get("PORT", "8080")),}
     )
-    #print("Starting Battlesnake Server...")
+    print("Starting Battlesnake Server...")
     cherrypy.tree.mount(random, '/random')
     cherrypy.quickstart(basic)
