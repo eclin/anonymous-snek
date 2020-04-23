@@ -42,7 +42,10 @@ class BasicStrategy(object):
 
         if not moves:
             return UP
-        closestFood = self.board.closest_food()
+
+        closestFood = self.board.my_snake.tail
+        if (self.board.my_snake.length < self.board.average_snake_size()) or self.board.my_snake.health < (self.board.height + self.board.width):
+            closestFood = self.board.closest_food()
         log(f"Closest food: ({closestFood.x},{closestFood.y})")
 
         beneficial = []
