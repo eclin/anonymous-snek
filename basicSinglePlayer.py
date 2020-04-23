@@ -22,7 +22,7 @@ class BasicStrategy(object):
             log(f"Checking for area of size {target}, found area of size {newsize} after {turns} turns")
             if newsize >= target:
                 for areas in self.board.areas:
-                    if move in areas and len(areas) > turns:
+                    if move in areas and len(areas) >= turns:
                         log(f"Return move: {move.x},{move.y}")
                         return move
             log (f"move: {move.x},{move.y} not accepted")
