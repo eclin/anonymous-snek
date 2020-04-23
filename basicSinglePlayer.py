@@ -14,14 +14,18 @@ class BasicStrategy(object):
             for move in beneficial:
                 log(f"Checking for area of size {target}, found area of size {len(areas)}")
                 if move in areas and len(areas) >= target:
+                    log(f"Return move: {move.x},{move.y}")
                     return move
                 log (f"move: {move.x},{move.y} not accepted")
-        for areas in self.board.areas:
-            for move in beneficial:
-                turns, newsize = self.board.turns_to_open(move)
-                log(f"Checking for area of size {target}, found area of size {newsize} after {turns} turns")
-                if newsize >= target and len(areas) > turns:
-                    return move
+        for move in beneficial:
+            turns, newsize = self.board.turns_to_open(move)
+            log(f"Checking for area of size {target}, found area of size {newsize} after {turns} turns")
+            if newsize >= target:
+                for areas in self.board.areas:
+                    if move in areas and len(areas) > turns:
+                        log(f"Return move: {move.x},{move.y}")
+                        return move
+            log (f"move: {move.x},{move.y} not accepted")
         return None
 
     def basic_move(self):

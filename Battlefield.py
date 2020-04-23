@@ -165,13 +165,15 @@ class Board(object):
         turn = 1
         while turn <= max_len:
             for s in all_snakes:
-                grid[s.body[-turn].y][s.body[-turn].x] = 0
+                if s.length >= turn:
+                    grid[s.body[-turn].y][s.body[-turn].x] = 0
             cur_size, cur_area = self.compute_area(grid, p, make_copy=True)
             if cur_size > orig_size:
                 return turn, cur_size
             turn += 1
         
         # should never reach here
+        log("Should never reach here")
         return -1, -1
             
     def out_of_bounds(self, p):
