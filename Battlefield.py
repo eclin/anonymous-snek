@@ -160,13 +160,13 @@ class Board(object):
         grid = [[0] * self.width for x in range(self.height)]
         for s in all_snakes:
             for b in s.body:
-                grid[b.y][b.x] = 1
+                grid[b.x][b.y] = 1
 
         turn = 1
         while turn <= max_len:
             for s in all_snakes:
                 if s.length >= turn:
-                    grid[s.body[-turn].y][s.body[-turn].x] = 0
+                    grid[s.body[-turn].x][s.body[-turn].y] = 0
             cur_size, cur_area = self.compute_area(grid, p, make_copy=True)
             if cur_size > orig_size:
                 return turn, cur_size
