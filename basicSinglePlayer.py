@@ -47,7 +47,7 @@ class BasicStrategy(object):
 
         beneficial = []
         target = self.board.my_snake.length
-        if target > int(self.board.free_spaces/2):
+        if target > self.board.free_spaces:
             target = 0
 
         if moves_no_death:
