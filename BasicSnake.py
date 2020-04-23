@@ -20,7 +20,7 @@ class BasicSnake(Snake):
         self.strategy[snake_id] = BasicStrategy(data)
         log("START")
         log(data)
-        return {"color": "#888889", "headType": "bendr", "tailType": "sharp"}
+        return {"color": "#9BC4E2", "headType": "bendr", "tailType": "bolt"}
 
     @cherrypy.expose
     @cherrypy.tools.json_in()
