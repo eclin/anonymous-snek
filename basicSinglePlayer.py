@@ -87,4 +87,5 @@ class BasicStrategy(object):
         move_to_take = self.findBestMove(moves, self.board.my_snake.length)
         if move_to_take != None:
             return self.board.my_snake.head.direction(move_to_take)
+        log(f"Dont know what to do so returning random move: {self.board.my_snake.head.direction(random.choice(moves))}")
         return self.board.my_snake.head.direction(random.choice(moves))
