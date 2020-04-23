@@ -12,11 +12,13 @@ class BasicStrategy(object):
     def findBestMove(self, beneficial, target):
         for areas in self.board.areas:
             for move in beneficial:
+                log(f"Checking for area of size {target}, found area of size {len(areas)}")
                 if move in areas and len(areas) >= target:
                     return move
         for areas in self.board.areas:
             for move in beneficial:
                 turns, newsize = self.board.turns_to_open(move)
+                log(f"Checking for area of size {target}, found area of size {newsize} after {turns} turns")
                 if newsize >= target and len(areas) > turns:
                     return move
         return None
