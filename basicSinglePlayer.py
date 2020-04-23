@@ -15,6 +15,7 @@ class BasicStrategy(object):
                 log(f"Checking for area of size {target}, found area of size {len(areas)}")
                 if move in areas and len(areas) >= target:
                     return move
+                log (f"move: {move.x},{move.y} not in {areas}")
         for areas in self.board.areas:
             for move in beneficial:
                 turns, newsize = self.board.turns_to_open(move)
