@@ -96,14 +96,14 @@ class Board(object):
         # For each snake body, mark the grid with a 1
         for s in self.other_snakes:
             for b in s.body:
-                grid[b.x][b.y] = 1
+                grid[b.y][b.x] = 1
         for b in self.my_snake.body:
-            grid[b.x][b.y] = 1
+            grid[b.y][b.x] = 1
         
         areas = []
         for y in range(len(grid)):
             for x in range(len(grid[y])):
-                if grid[x][y] == 1:
+                if grid[y][x] == 1:
                     continue
                 size, area = self.compute_area(grid, Coord(x, y))
                 areas.append(area)
@@ -120,19 +120,19 @@ class Board(object):
             grid = copy.deepcopy(g)
         else:
             grid = g
-        if grid[p.x][p.y] == 1:
+        if grid[p.y][p.x] == 1:
             return 0, []
-        grid[p.x][p.y] = 1
+        grid[p.y][p.x] = 1
         area = [p]
         stack = [p.up(), p.down(), p.left(), p.right()]
         while len(stack) > 0:
             top = stack.pop(-1)
             if self.out_of_bounds(top):
                 continue
-            if grid[top.x][top.y] == 1:
+            if grid[top.y][top.x] == 1:
                 continue
             area.append(top)
-            grid[top.x][top.y] = 1
+            grid[top.y][top.x] = 1
             stack += [top.up(), top.down(), top.left(), top.right()]
         return len(area), area
                 
@@ -160,13 +160,13 @@ class Board(object):
         grid = [[0] * self.width for x in range(self.height)]
         for s in all_snakes:
             for b in s.body:
-                grid[b.x][b.y] = 1
+                grid[b.y][b.x] = 1
 
         turn = 1
         while turn <= max_len:
             for s in all_snakes:
                 if s.length >= turn:
-                    grid[s.body[-turn].x][s.body[-turn].y] = 0
+                    grid[s.body[-turn].y][s.body[-turn].x] = 0
             cur_size, cur_area = self.compute_area(grid, p, make_copy=True)
             if cur_size > orig_size:
                 return turn, cur_size
