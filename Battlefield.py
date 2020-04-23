@@ -146,6 +146,7 @@ class Board(object):
         for a in self.areas:
             if p in a:
                 orig_size = len(a)
+                break
 
         all_snakes = self.other_snakes + [self.my_snake]
 
@@ -168,6 +169,7 @@ class Board(object):
             cur_size, cur_area = self.compute_area(grid, p, make_copy=True)
             if cur_size > orig_size:
                 return turn, cur_size
+            turn += 1
         
         # should never reach here
         return -1, -1
