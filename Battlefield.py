@@ -1,5 +1,5 @@
-import math
 import copy
+from Log import log
 
 LEFT = 'left'
 RIGHT = 'right'
@@ -165,8 +165,6 @@ class Board(object):
         while turn <= max_len:
             for s in all_snakes:
                 grid[s.body[-turn].y][s.body[-turn].x] = 0
-            #for g in grid:
-                #print(g)
             cur_size, cur_area = self.compute_area(grid, p, make_copy=True)
             if cur_size > orig_size:
                 return turn, cur_size
@@ -261,7 +259,7 @@ class Snake(object):
         last = Coord(data['body'][-1]['x'], data['body'][-1]['y'])
         self.body.insert(0, first)
         if len(data['body']) >= len(self.body): #self.size_on_board():
-            print(f"Ate, new tail: ({last.x},{last.y})")
+            log(f"Ate, new tail: ({last.x},{last.y})")
             # just ate a food -> pop back, add new back
             self.body.pop(-1)
             self.body.append(last)
@@ -273,7 +271,7 @@ class Snake(object):
         self.head = self.body[0]
         self.tail = self.body[-1]
         self.length = len(self.body)
-        print(f"Upated len:{self.length}, actual len:{len(data['body'])}")
+        log(f"Upated len:{self.length}, actual len:{len(data['body'])}")
 
     def size_on_board(self):
         return len({x for x in self.body})
