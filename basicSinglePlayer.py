@@ -46,6 +46,9 @@ class BasicStrategy(object):
         log(f"Closest food: ({closestFood.x},{closestFood.y})")
 
         beneficial = []
+        target = self.board.my_snake.length
+        if target > int(self.board.free_spaces/2):
+            target = 0
 
         if moves_no_death:
             if (head_right in moves_no_death) and (self.board.my_snake.head.x < closestFood.x):
@@ -59,12 +62,12 @@ class BasicStrategy(object):
             # if health is greater than threshold then dont take a riskier move
             if beneficial:
                 log(f"Beneficial Safe Moves: ({[self.board.my_snake.head.direction(x) for x in beneficial]})")
-                move_to_take = self.findBestMove(beneficial, self.board.my_snake.length)
+                move_to_take = self.findBestMove(beneficial, target)
                 if move_to_take != None:
                     return self.board.my_snake.head.direction(move_to_take)
             if self.board.my_snake.health >= (self.board.height + self.board.width):
                 log(f"Nothing beneficial and not starving")
-                move_to_take = self.findBestMove(moves_no_death, self.board.my_snake.length)
+                move_to_take = self.findBestMove(moves_no_death, target)
                 if move_to_take != None:
                     return self.board.my_snake.head.direction(move_to_take)
         # moves is not empty
@@ -81,10 +84,10 @@ class BasicStrategy(object):
         # TODO: can potentially mark certain moves as less dangerous and take the least dangerous move
         if beneficial:
             log(f"Beneficial Risky Moves: ({[self.board.my_snake.head.direction(x) for x in beneficial]})")
-            move_to_take = self.findBestMove(beneficial, self.board.my_snake.length)
+            move_to_take = self.findBestMove(beneficial, target)
             if move_to_take != None:
                 return self.board.my_snake.head.direction(move_to_take)
-        move_to_take = self.findBestMove(moves, self.board.my_snake.length)
+        move_to_take = self.findBestMove(moves, target)
         if move_to_take != None:
             return self.board.my_snake.head.direction(move_to_take)
         log(f"Dont know what to do so returning random move: {self.board.my_snake.head.direction(random.choice(moves))}")
