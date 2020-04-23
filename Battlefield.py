@@ -93,6 +93,9 @@ class Board(object):
         self.free_spaces = (self.height * self.width) - len(self.my_snake.body)
         self.free_spaces -= sum([len(b.body) for b in self.other_snakes])
 
+    def average_snake_size(self):
+        return int(sum([len(b.body) for b in self.other_snakes]) / len(self.other_snakes))
+
     def compute_areas(self):
         # create height x width 2D array of all 0s
         grid = [[0] * self.width for x in range(self.height)]

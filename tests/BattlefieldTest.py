@@ -153,6 +153,8 @@ class BoardSnakeTest():
         assert len(self.board.areas[1]) == 25
         assert len(self.board.areas[2]) == 22
 
+        assert self.board.average_snake_size() == 8
+
         # test the turns_to_open function
         turns, size = self.board.turns_to_open(Coord(2, 3))
         print(turns)
