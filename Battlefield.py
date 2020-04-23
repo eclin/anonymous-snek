@@ -66,6 +66,8 @@ class Board(object):
             if s['id'] != self.my_snake.id:
                 self.other_snakes.append(Snake(s))
         self.areas = self.compute_areas()
+        self.free_spaces = (self.height * self.width) - len(self.my_snake.body)
+        self.free_spaces -= sum([len(b.body) for b in self.other_snakes])
 
     # given the game data, this will update the board
     def update(self, data):
@@ -88,6 +90,8 @@ class Board(object):
                 live_snakes.append(s)
         self.other_snakes = live_snakes
         self.areas = self.compute_areas()
+        self.free_spaces = (self.height * self.width) - len(self.my_snake.body)
+        self.free_spaces -= sum([len(b.body) for b in self.other_snakes])
 
     def compute_areas(self):
         # create height x width 2D array of all 0s

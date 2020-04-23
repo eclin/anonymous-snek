@@ -42,6 +42,7 @@ class BoardSnakeTest():
         assert self.board.height == 11
         assert self.board.width == 11
         assert self.board.food == [Coord(2, 4), Coord(6, 1)]
+        assert self.board.free_spaces == 115
 
         # assert your own snake properties
         assert self.board.my_snake.id == 'gs_J7YmyRgTFCPHcbKG3fyBrBRD'
@@ -93,6 +94,7 @@ class BoardSnakeTest():
         assert self.board.id == '565f9a41-ca40-44dc-979a-212470145779'
         assert self.board.height == 11
         assert self.board.width == 11
+        assert self.board.free_spaces == 115
         food = self.board.food
         assert Coord(2, 4) in food 
         assert Coord(6, 1) in food 
@@ -145,6 +147,7 @@ class BoardSnakeTest():
         f = open("tests/test_areas.txt")
         data = json.load(f)
         self.board = Board(data)
+        assert self.board.free_spaces == 102
         assert len(self.board.areas) == 3
         assert len(self.board.areas[0]) == 55
         assert len(self.board.areas[1]) == 25
