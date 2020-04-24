@@ -209,12 +209,14 @@ class Board(object):
 
     # return possible moves given a position (default to your head)
     # moves returned could still lead to death (like head on head)
-    def possible_moves(self):
+    def possible_moves(self, p=None):
+        if p is None:
+            p = self.my_snake.head
         moves = {
-            UP: self.my_snake.head.up(),
-            DOWN: self.my_snake.head.down(),
-            LEFT: self.my_snake.head.left(),
-            RIGHT: self.my_snake.head.right(),
+            UP: p.up(),
+            DOWN: p.down(),
+            LEFT: p.left(),
+            RIGHT: p.right(),
         }
         for d in DIRECTIONS:
             if self.out_of_bounds(moves[d]):
@@ -238,8 +240,10 @@ class Board(object):
         
         return [moves[d] for d in moves]
 
-    def possible_moves_no_death(self):
-        moves = self.possible_moves()
+    def possible_moves_no_death(self, p=None):
+        if p is None:
+            p = self.my_snake.head
+        moves = self.possible_moves(p)
         new_moves = []
         other_moves = []
         # check if can collide head on with another equal sized or longer snake
@@ -260,7 +264,10 @@ class Board(object):
             if s.length > self.my_snake.length:
                 for m in s.possible_moves():
                     risky_moves.append(m)
-        return risky_moves        
+        return risky_moves
+
+    def freedom(self, p):
+        return len(self.possible_moves(p))
 
 class Snake(object):
     # data is a snake dict, not the entire game dict
