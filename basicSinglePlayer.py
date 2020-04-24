@@ -57,6 +57,16 @@ class BasicStrategy(object):
                 return False
         return True
 
+    def my_random(self, list_of_moves):
+        best = None
+        degrees = -1
+        for i in list_of_moves:
+            local = self.board.freedom(i)
+            if local > degrees:
+                best = i
+                degrees = local
+        return best
+
     def move_towards_food(self, moves):
         food_location = self.board.closest_food()
         if not self.get_to_food_first(food_location):
@@ -125,7 +135,7 @@ class BasicStrategy(object):
                     return self.board.my_snake.head.direction(move_to_take)
                 target = 0
                 return self.board.my_snake.head.direction(self.find_best_move(urgent, beneficial, target))
-        return self.board.my_snake.head.direction(random.choice(moves_no_death))
+        return self.board.my_snake.head.direction(self.my_random(moves_no_death))
     
     def move_to_stall(self, moves):
         log(f"move to stall")
@@ -157,7 +167,7 @@ class BasicStrategy(object):
                 move_to_take = self.find_best_move(False, beneficial, target)
                 if move_to_take != None:
                     return self.board.my_snake.head.direction(move_to_take)
-        risky_moves = self.board.risky_moves()
+        risky_moves = self.board.possible_moves()
         risky_moves = (list(set(moves_no_death) - set(risky_moves)))
         log(f"Risky Moves: {[self.board.my_snake.head.direction(x) for x in risky_moves]}")
         target = self.board.my_snake.length
@@ -169,8 +179,8 @@ class BasicStrategy(object):
             return move_to_take
         else:
             if not moves_no_death:
-                return self.board.my_snake.head.direction(random.choice(risky_moves))
-            return self.board.my_snake.head.direction(random.choice(moves_no_death))
+                return self.board.my_snake.head.direction(self.my_random(risky_moves))
+            return self.board.my_snake.head.direction(self.my_random(moves_no_death))
 
     def basic_move(self):
         # keep track of all the possible moves (potentially risky)
