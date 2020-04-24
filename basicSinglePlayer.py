@@ -34,13 +34,13 @@ class BasicStrategy(object):
             another_snek = False
             for s in self.board.other_snakes:
                 moves = {
-                    UP: self.board.my_snake.head.up(),
-                    DOWN: self.board.my_snake.head.down(),
-                    LEFT: self.board.my_snake.head.left(),
-                    RIGHT: self.board.my_snake.head.right(),
+                    UP: s.head.up(),
+                    DOWN: s.head.down(),
+                    LEFT: s.head.left(),
+                    RIGHT: s.head.right(),
                 }
                 for i in moves:
-                    if s.moves[i] in area_containing_point[m]:
+                    if moves[i] in area_containing_point[m]:
                         move_to_take[m][1] -= int(s.length/4)
                         another_snek = True
             if another_snek == False:
