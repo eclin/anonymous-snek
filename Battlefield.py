@@ -95,6 +95,12 @@ class Board(object):
 
     def average_snake_size(self):
         return int(sum([len(b.body) for b in self.other_snakes]) / len(self.other_snakes))
+    
+    def longest_snake_size(self):
+        max = 0
+        for snake in self.other_snakes:
+            if len(snake.body) > max:
+                max = len(snake.body)
 
     def compute_areas(self):
         # create height x width 2D array of all 0s

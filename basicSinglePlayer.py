@@ -63,7 +63,8 @@ class BasicStrategy(object):
         # we go for our tail 
         closestFood = self.board.my_snake.tail
         # if we are smaller than average snek or we are hungry, we go for food instead of our tail
-        if (self.board.my_snake.length < self.board.average_snake_size()) or self.board.my_snake.health < (self.board.height + self.board.width):
+        #if (self.board.my_snake.length < self.board.average_snake_size()) or self.board.my_snake.health < (self.board.height + self.board.width):
+        if (self.board.my_snake.length <= self.board.longest_snake_size()) or self.board.my_snake.health < (self.board.height + self.board.width):
             closestFood = self.board.closest_food()
         log(f"Closest food: ({closestFood.x},{closestFood.y})")
 
