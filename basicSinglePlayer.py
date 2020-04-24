@@ -44,7 +44,7 @@ class BasicStrategy(object):
                         move_to_take[m] = (move_to_take[m][0], move_to_take[m][1] - int(s.length/4))
                         another_snek = True
             if another_snek == False:
-                move_to_take[m][1] += 50
+                move_to_take[m] = (move_to_take[m][0], move_to_take[m][1] + 50)
         for m in move_to_take:
             if m[1] > best[1]:
                 best = m
