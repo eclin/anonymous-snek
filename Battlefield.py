@@ -101,6 +101,8 @@ class Board(object):
         for snake in self.other_snakes:
             if len(snake.body) > max:
                 max = len(snake.body)
+        if max == 0:
+            max = self.my_snake.length
         return max
 
     def compute_areas(self):
