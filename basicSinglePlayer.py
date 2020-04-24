@@ -41,7 +41,7 @@ class BasicStrategy(object):
                 }
                 for i in moves:
                     if moves[i] in area_containing_point[m]:
-                        move_to_take[m][1] -= int(s.length/4)
+                        move_to_take[m] = (move_to_take[m][0], move_to_take[m][1] - int(s.length/4))
                         another_snek = True
             if another_snek == False:
                 move_to_take[m][1] += 50
