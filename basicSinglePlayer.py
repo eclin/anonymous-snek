@@ -10,37 +10,6 @@ class BasicStrategy(object):
     def update(self, data):
         self.board.update(data)
 
-    def findBestMove(self, beneficial, target):
-        # since the areas are sorted in decreasing size, the best move will be the move that appears
-        # in the earliest area since earlier area = bigger = better
-        for areas in self.board.areas:
-            # check if any of the beneficial moves are in the area
-            for move in beneficial:
-                log(f"Checking for area of size {target}, found area of size {len(areas)}")
-                # if the move is in the area and the size of the area is bigger than what we are looking for we are good
-                if move in areas and len(areas) >= target:
-                    log(f"Return move: {move.x},{move.y}")
-                    return move
-                # move is either not in the area or not big enough
-                # TODO: can optimize this, break out early
-                log (f"move: {move.x},{move.y} not accepted")
-        # none of the moves take us to an area that is currently big enough
-        # we check if any of the moves takes us to an area that can potentially open up to a suitable size
-        for move in beneficial:
-            turns, newsize = self.board.turns_to_open(move)
-            log(f"Checking for area of size {target}, found area of size {newsize} after {turns} turns")
-            # if  the size that the area opens up to is big enough
-            if newsize >= target:
-                # find the area in which the move belongs in
-                # then we ensure that the current size of the area is big enough to hold us while we wait for the area to open
-                for areas in self.board.areas:
-                    if move in areas and len(areas) >= turns:
-                        log(f"Return move: {move.x},{move.y}")
-                        return move
-            log (f"move: {move.x},{move.y} not accepted")
-        # if we return none of our moves leads to an area that is big enough and none of our moves lead to an area that can expand to the size we need
-        return None
-
     def find_best_move(self,urgent, move_list, target):
         # since the areas are sorted in decreasing size, the best move will be the move that appears
         # in the earliest area since earlier area = bigger = better
@@ -56,7 +25,7 @@ class BasicStrategy(object):
                     if len(areas) >= target:
                         log(f"Return move: {move.x},{move.y}")
                         area_containing_point.append(areas)
-                        move_to_take.append(move,len(areas))
+                        move_to_take.append((move,len(areas)))
                         break
                     # area is not big enough
                     log (f"move: {move.x},{move.y} not accepted")
