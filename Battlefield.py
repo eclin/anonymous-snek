@@ -101,6 +101,7 @@ class Board(object):
         for snake in self.other_snakes:
             if len(snake.body) > max:
                 max = len(snake.body)
+        return max
 
     def compute_areas(self):
         # create height x width 2D array of all 0s
