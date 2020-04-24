@@ -162,8 +162,12 @@ class BasicStrategy(object):
         target = self.board.my_snake.length
         # if we are bigger than the remaining spaces, we ignore target so set it to 0
         if target > self.board.free_spaces:
-            target = 0        
-        return self.board.my_snake.head.direction(self.find_best_move(False, moves_no_death, target))
+            target = 0
+        move_to_take = self.board.my_snake.head.direction(self.find_best_move(False, moves_no_death, target))
+        if move_to_take != None:
+            return move_to_take
+        else:
+            return self.board.my_snake.head.direction(random.choice(moves_no_death))
 
     def basic_move(self):
         # keep track of all the possible moves (potentially risky)
