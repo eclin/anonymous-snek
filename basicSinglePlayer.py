@@ -159,6 +159,7 @@ class BasicStrategy(object):
                     return self.board.my_snake.head.direction(move_to_take)
         risky_moves = self.board.risky_moves()
         risky_moves = (list(set(moves_no_death) - set(risky_moves)))
+        log(f"Risky Moves: {[self.board.my_snake.head.direction(x) for x in risky_moves]}")
         target = self.board.my_snake.length
         # if we are bigger than the remaining spaces, we ignore target so set it to 0
         if target > self.board.free_spaces:
