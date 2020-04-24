@@ -257,7 +257,7 @@ class Board(object):
         risky_moves = []
         # check if can collide head on with another equal sized or longer snake
         for s in self.other_snakes:
-            if s.length > self.my_snake.length:
+            if s.length >= self.my_snake.length:
                 for m in s.possible_moves():
                     risky_moves.append(m)
         return risky_moves        
