@@ -112,8 +112,12 @@ class Board(object):
         # For each snake body, mark the grid with a 1
         for s in self.other_snakes:
             for b in s.body:
+                if b == s.tail and not s.will_extend:
+                    break
                 grid[b.y][b.x] = 1
         for b in self.my_snake.body:
+            if b == s.tail and not s.will_extend:
+                break
             grid[b.y][b.x] = 1
         
         areas = []
