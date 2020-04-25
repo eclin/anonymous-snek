@@ -109,7 +109,7 @@ class BasicStrategy(object):
         if not urgent:
             return self.move_to_stall(moves)
         risky_moves = self.board.possible_moves()
-        risky_moves = (list(set(moves_no_death) - set(risky_moves)))
+        risky_moves = (list(set(risky_moves) - set(beneficial)))
         if risky_moves:
             beneficial.clear()    
             if (moves[RIGHT] in risky_moves) and (self.board.my_snake.head.x < food_location.x):
@@ -168,7 +168,7 @@ class BasicStrategy(object):
                 if move_to_take != None:
                     return self.board.my_snake.head.direction(move_to_take)
         risky_moves = self.board.possible_moves()
-        risky_moves = (list(set(moves_no_death) - set(risky_moves)))
+        risky_moves = (list(set(risky_moves) - set(beneficial)))
         log(f"Risky Moves: {[self.board.my_snake.head.direction(x) for x in risky_moves]}")
         target = self.board.my_snake.length
         # if we are bigger than the remaining spaces, we ignore target so set it to 0
