@@ -290,7 +290,7 @@ class Snake(object):
         self.will_extend = False
         self.just_ate = False
 
-        if self.size_on_board < 3:
+        if self.size_on_board() < 3:
             self.will_extend = True
 
         first = Coord(data['body'][0]['x'], data['body'][0]['y'])
