@@ -116,7 +116,7 @@ class Board(object):
                     break
                 grid[b.y][b.x] = 1
         for b in self.my_snake.body:
-            if b == self.my_snake.tail and not s.my_snake.will_extend:
+            if b == self.my_snake.tail and not self.my_snake.will_extend:
                 break
             grid[b.y][b.x] = 1
         
