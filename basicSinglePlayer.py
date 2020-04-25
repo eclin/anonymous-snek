@@ -108,7 +108,7 @@ class BasicStrategy(object):
             not_beneficial = (list(set(moves_no_death) - set(beneficial)))
         if not urgent:
             return self.move_to_stall(moves)
-        risky_moves = self.board.risky_moves()
+        risky_moves = self.board.possible_moves()
         risky_moves = (list(set(moves_no_death) - set(risky_moves)))
         if risky_moves:
             beneficial.clear()    
