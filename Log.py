@@ -1,5 +1,5 @@
 
-LOGGING_ON = False
+LOGGING_ON = True
 
 def log(msg):
     if LOGGING_ON:
