@@ -144,6 +144,7 @@ class BasicStrategy(object):
         log(f"Possible Moves No Death: {[self.board.my_snake.head.direction(x) for x in moves_no_death]}")
         tail_location = self.board.my_snake.tail
         beneficial = []
+        not_beneficial = []
         if moves_no_death:
             # if the direction is in the safe moves list and the direction brings us closer to tail/food we add it to beneficial
             if (moves[RIGHT] in moves_no_death) and (self.board.my_snake.head.x < tail_location.x):
@@ -167,6 +168,20 @@ class BasicStrategy(object):
                 move_to_take = self.find_best_move(False, beneficial, target)
                 if move_to_take != None:
                     return self.board.my_snake.head.direction(move_to_take)
+        
+        not_beneficial = (list(set(moves_no_death) - set(beneficial)))
+        if not not_beneficial:
+            # we want the new area to be big enough to contain the entire snake
+            target = self.board.my_snake.length
+            # if we are bigger than the remaining spaces, we ignore target so set it to 0
+            if target > self.board.free_spaces:
+                target = 0
+            log(f"Not Beneficial Safe Moves: ({[self.board.my_snake.head.direction(x) for x in not_beneficial]})")
+            # we find the best move out of the non beneficial moves
+            move_to_take = self.find_best_move(False, not_beneficial, target)
+            if move_to_take != None:
+                return self.board.my_snake.head.direction(move_to_take)
+
         risky_moves = self.board.possible_moves()
         risky_moves = (list(set(risky_moves) - set(beneficial)))
         log(f"Risky Moves: {[self.board.my_snake.head.direction(x) for x in risky_moves]}")
