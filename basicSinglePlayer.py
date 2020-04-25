@@ -170,7 +170,7 @@ class BasicStrategy(object):
                     return self.board.my_snake.head.direction(move_to_take)
         
         not_beneficial = (list(set(moves_no_death) - set(beneficial)))
-        if not not_beneficial:
+        if not_beneficial:
             # we want the new area to be big enough to contain the entire snake
             target = self.board.my_snake.length
             # if we are bigger than the remaining spaces, we ignore target so set it to 0
